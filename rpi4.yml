@@ -1,0 +1,6 @@
+---
+
+- hosts : rpi4
+  become: true
+  roles:
+    - secured_rpi

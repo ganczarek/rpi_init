@@ -1,0 +1,6 @@
+---
+
+- hosts : rpi4.init
+  become: true
+  roles:
+    - setup_ssh

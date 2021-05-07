@@ -1,0 +1,17 @@
+---
+
+- name: Create user {{ username }} on {{ hostname }}
+  user:
+    name: "{{ username }}"
+    password: "{{ ansible_sudo_pass | password_hash('sha512') }}"
+    update_password: on_create
+    groups: sudo
+
+- name: Set authorised SSH key
+  authorized_key:
+    user: "{{ username }}"
+    state: present
+    key: "{{ lookup('file', '~/.ssh/' + hostname + '_rsa.pub') }}"
+
+
+# TODO: change default SSH port

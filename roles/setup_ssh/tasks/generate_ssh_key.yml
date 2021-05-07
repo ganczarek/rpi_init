@@ -1,0 +1,20 @@
+---
+
+- name: Generate SSH key for {{ hostname }}
+  become: false
+  local_action: command ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/{{ hostname }}_rsa -C "" -N ""
+  args:
+    creates: ~/.ssh/{{ hostname }}_rsa
+
+- name: Add {{ hostname }} host to SSH config file
+  become: false
+  blockinfile:
+    dest: ~/.ssh/config
+    create: yes
+    state: present
+    block: |
+      Host {{ hostname }}
+          User rpi4
+          HostName {{ ansible_host }}
+          IdentityFile ~/.ssh/{{ hostname }}_rsa
+  delegate_to: localhost

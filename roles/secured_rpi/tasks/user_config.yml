@@ -1,0 +1,20 @@
+- name: Remove default 'pi' user
+  user:
+    name: pi
+    state: absent
+    remove: yes
+
+- name: Remove 'pi' from sudoers
+  file:
+    state: absent
+    path: /etc/sudoers.d/010_pi-nopasswd
+
+- name: Set groups of user {{ ansible_user }}
+  user:
+    name: "{{ ansible_user }}"
+    groups: sudo,users
+
+- name: Require sudo password from {{ ansible_user }}
+  copy:
+    content: "{{ ansible_user }} ALL=(ALL) PASSWD: ALL"
+    dest: /etc/sudoers.d/010_{{ ansible_user }}-passwd

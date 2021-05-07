@@ -1,0 +1,7 @@
+---
+
+- name: Generate ssh key on localhost
+  import_tasks: generate_ssh_key.yml
+
+- name: Setup SSH access to {{ hostname }}
+  import_tasks: setup_ssh_access.yml

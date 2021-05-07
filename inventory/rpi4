@@ -1,0 +1,3 @@
+[rpi]
+rpi4.init   ansible_host=192.168.0.80 ansible_python_interpreter=/usr/bin/python3
+rpi4        ansible_python_interpreter=/usr/bin/python3
